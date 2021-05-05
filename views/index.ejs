@@ -41,10 +41,12 @@
         var wrapper = document.getElementById("reqCode"); 
         // or from a string by JSON.parse(str) method
         var dataStr = decodedString;
+        var data = null;
         try {
-            var data = JSON.parse(dataStr);
+            data = JSON.parse(dataStr);
         } catch (e) {}
 
+        console.log(data);
         // Create json-tree
         var tree = jsonTree.create(data, wrapper);  
     </script>
