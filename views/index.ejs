@@ -37,8 +37,7 @@
     </div>  
     <script>
         let req = "<%= req %>"  ; 
-        console.log('req:'+req);
-        var decodedString = req.split('&quot;').join('"')  ;  
+        var decodedString = req.split('&#34;').join('"')  ;  
         console.log('decodedString:'+decodedString);
         var wrapper = document.getElementById("reqCode");
         console.log('wrapper:'+wrapper); 
