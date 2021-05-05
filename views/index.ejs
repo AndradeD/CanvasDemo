@@ -47,7 +47,6 @@
         var decodedString = req.split('&#34;').join('"')  ;  
         console.log('decodedString:'+decodedString);
         var wrapper = document.getElementById("reqCode");
-        console.log('wrapper:'+wrapper); 
         // or from a string by JSON.parse(str) method
         var dataStr = decodedString;
         var data = null;
@@ -55,10 +54,11 @@
             data = JSON.parse(dataStr);
         } catch (e) {}
 
-        console.log('context:' + data.context.environment.record);
+        console.log('context:' + JSON.parse(data.context.environment.record.Name));
 
         function editAccount() {
             var accountName = document.getElementById('nome-account').val();
+            data.context.environment.record.Name = accountName;
         }
 
         // Create json-tree
