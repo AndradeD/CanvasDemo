@@ -11,6 +11,7 @@
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
  
     <link href="jsonTree.css" rel="stylesheet" />
+    <link href="index.css" rel="stylesheet" />
     <script src="jsonTree.js"></script>
 
 </head>
@@ -27,6 +28,12 @@
                 </ul> 
             </p> 
         </div> 
+
+        <div id="edicao_account">
+            <p>Nome</p>
+            <input type="text" placeholder="Nome" id="nome-account" />
+            <button onclick="editAccount()">Edit Account</button>
+        </div>
      
         <p>
             <div id="reqCode">
@@ -49,6 +56,11 @@
         } catch (e) {}
 
         console.log('data:' + data);
+
+        function editAccount() {
+            var accountName = document.getElementById('nome-account').val();
+        }
+
         // Create json-tree
         var tree = jsonTree.create(data, wrapper);  
     </script>
