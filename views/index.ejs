@@ -37,8 +37,11 @@
     </div>  
     <script>
         let req = "<%= req %>"  ; 
+        console.log('req:'+req);
         var decodedString = req.split('&quot;').join('"')  ;  
-        var wrapper = document.getElementById("reqCode"); 
+        console.log('decodedString:'+decodedString);
+        var wrapper = document.getElementById("reqCode");
+        console.log('wrapper:'+wrapper); 
         // or from a string by JSON.parse(str) method
         var dataStr = decodedString;
         var data = null;
@@ -46,7 +49,7 @@
             data = JSON.parse(dataStr);
         } catch (e) {}
 
-        console.log(data);
+        console.log('data:' + data);
         // Create json-tree
         var tree = jsonTree.create(data, wrapper);  
     </script>
