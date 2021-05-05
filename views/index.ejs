@@ -19,7 +19,7 @@
 <body>
     <div class="container-fluid">
  
-        <div class="jumbotron">
+        <!--<div class="jumbotron">
             <h1 class="display-4"> Canvas App Workinga as Expected, Few Observations </h1>
             <p class="lead">
                 <ul>
@@ -27,7 +27,7 @@
                     <li>  Users must be preapproved for signed request, otherwise OAuth flow would be needed. </li> 
                 </ul> 
             </p> 
-        </div> 
+        </div> -->
 
         <div id="edicao_account">
             <p>Nome</p>
@@ -55,7 +55,7 @@
             data = JSON.parse(dataStr);
         } catch (e) {}
 
-        console.log('data:' + data);
+        console.log('context:' + data.context.environment.record);
 
         function editAccount() {
             var accountName = document.getElementById('nome-account').val();
