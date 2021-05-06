@@ -2,7 +2,6 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   path = require('path') 
 var app = express();
-var jsforce = require('jsforce');
 var crypto = require("crypto");
 var consumerSecretApp = process.env.CANVAS_CONSUMER_SECRET || '7F1D62DFA69EFAA7086979BE0D9E0D21CB21AD8F93D6494A21812CC61781203B';
 
