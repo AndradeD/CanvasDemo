@@ -55,9 +55,6 @@
             data = JSON.parse(dataStr);
         } catch (e) {}
 
-        var url = data.client.instanceUrl + data.context.environment.record.attributes.url;
-        console.log(url);
-
         function editAccount() {
             var accountName = document.getElementById('nome-account').value;
             var conn = new jsforce.Connection({ signedRequest: data });
@@ -67,7 +64,7 @@
                 console.log(res);
             });*/
             conn.sobject("Account").update({ 
-                Id : '\'' + data.context.environment.record.Id +'\'',
+                Id : data.context.environment.record.Id,
                 Name : accountName
             }, function(err, ret) {
             if (err || !ret.success) { return console.error(err, ret); }
