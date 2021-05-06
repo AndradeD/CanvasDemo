@@ -44,6 +44,7 @@
     </div>  
     <script>
         let req = "<%= req %>"  ; 
+        var sr = JSON.parse('<%= req %>');
         var decodedString = req.split('&#34;').join('"')  ;  
         console.log('decodedString:'+decodedString);
         var wrapper = document.getElementById("reqCode");
@@ -54,11 +55,35 @@
             data = JSON.parse(dataStr);
         } catch (e) {}
 
-        console.log('context:' + data.context.environment.record.Name);
+        var url = sr.client.instanceUrl + sr.context.links.url;
+        console.log(url);
 
         function editAccount() {
-            var accountName = document.getElementById('nome-account').val();
-            data.context.environment.record.Name = accountName;
+            var accountName = document.getElementById('nome-account').text;
+            console.log('Account Name:' + accountName);
+            
+            var body = {
+                body : {
+                    messageSegments : [
+                    {
+                        type: "Text", 
+                        text: accountName
+                    }
+                    ]
+                }};
+ 
+            Sfdc.canvas.client.ajax(url,
+                {
+                    client: sr.client,
+                    method: 'POST',
+                    contentType: "application/json",
+                    data: JSON.stringify(body),
+                    success : function(data) {
+                        if (201 === data.status) {
+                            alert("Success");
+                        }
+                    }
+                });
         }
 
         // Create json-tree
