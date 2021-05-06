@@ -44,6 +44,7 @@
     </div>  
     <script>
         let req = "<%= req %>"  ; 
+        var sr = req.content;
         var decodedString = req.split('&#34;').join('"')  ;  
         console.log('decodedString:'+decodedString);
         var wrapper = document.getElementById("reqCode");
@@ -54,35 +55,16 @@
             data = JSON.parse(dataStr);
         } catch (e) {}
 
-        var url = data.client.instanceUrl + data.context.links.url;
+        var url = data.client.instanceUrl + data.context.environment.record.url;
         console.log(url);
 
         function editAccount() {
-            var accountName = document.getElementById('nome-account').text;
-            console.log('Account Name:' + accountName);
-            
-            var body = {
-                body : {
-                    messageSegments : [
-                    {
-                        type: "Text", 
-                        text: accountName
-                    }
-                    ]
-                }};
- 
-            Sfdc.canvas.client.ajax(url,
-                {
-                    client: data.client,
-                    method: 'POST',
-                    contentType: "application/json",
-                    data: JSON.stringify(body),
-                    success : function(data1) {
-                        if (201 === data1.status) {
-                            alert("Success");
-                        }
-                    }
-                });
+            var accountName = document.getElementById('nome-account').value;
+            var conn = new jsforce.Connection({ signedRequest: sr });
+            conn.query('SELECT Id, Name FROM Account WHERE ID = ' + data.context.environment.record.Id , function(err, res) {
+                if (err) { return console.error(err); }
+                console.log(res);
+            });
         }
 
         // Create json-tree
