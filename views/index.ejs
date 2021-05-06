@@ -62,9 +62,16 @@
             var accountName = document.getElementById('nome-account').value;
             var conn = new jsforce.Connection({ signedRequest: data });
             conn.instanceUrl = data.client.instanceUrl;
-            conn.query('SELECT Id, Name FROM Account WHERE ID = \'' + data.context.environment.record.Id + '\'', function(err, res) {
+            /*conn.query('SELECT Id, Name FROM Account WHERE ID = \'' + data.context.environment.record.Id + '\'', function(err, res) {
                 if (err) { return console.error(err); }
                 console.log(res);
+            });*/
+            conn.sobject("Account").update({ 
+                Id : '\'' + data.context.environment.record.Id +'\'',
+                Name : accountName
+            }, function(err, ret) {
+            if (err || !ret.success) { return console.error(err, ret); }
+            console.log('Updated Successfully : ' + ret.id);
             });
         }
 
