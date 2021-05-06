@@ -17,7 +17,8 @@ app.use(bodyParser.json());
  
 
 app.get('/', function (req, res) {
-  res.render('hello');
+  //res.render('hello');
+  res.render('index');
 });
 
 app.post('/', function (req, res) { 
