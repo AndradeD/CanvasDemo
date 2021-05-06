@@ -68,7 +68,7 @@
                 Name : accountName
             }, function(err, ret) {
             if (err || !ret.success) { return console.error(err, ret); }
-            console.log('Updated Successfully : ' + ret.id);
+                alert('Updated Successfully : ' + ret.id + ", please refresh your page.");
             });
         }
 
