@@ -44,7 +44,6 @@
     </div>  
     <script>
         let req = "<%= req %>"  ; 
-        var sr = JSON.parse('<%= req %>');
         var decodedString = req.split('&#34;').join('"')  ;  
         console.log('decodedString:'+decodedString);
         var wrapper = document.getElementById("reqCode");
@@ -55,7 +54,7 @@
             data = JSON.parse(dataStr);
         } catch (e) {}
 
-        var url = sr.client.instanceUrl + sr.context.links.url;
+        var url = data.client.instanceUrl + data.context.links.url;
         console.log(url);
 
         function editAccount() {
@@ -74,12 +73,12 @@
  
             Sfdc.canvas.client.ajax(url,
                 {
-                    client: sr.client,
+                    client: data.client,
                     method: 'POST',
                     contentType: "application/json",
                     data: JSON.stringify(body),
-                    success : function(data) {
-                        if (201 === data.status) {
+                    success : function(data1) {
+                        if (201 === data1.status) {
                             alert("Success");
                         }
                     }
