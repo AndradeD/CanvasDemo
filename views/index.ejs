@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
  
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jsforce/1.9.1/jsforce.min.js"></script>
     <link href="jsonTree.css" rel="stylesheet" />
     <link href="index.css" rel="stylesheet" />
     <script src="jsonTree.js"></script>
@@ -55,7 +56,7 @@
             data = JSON.parse(dataStr);
         } catch (e) {}
 
-        var url = data.client.instanceUrl + data.context.environment.record.url;
+        var url = data.client.instanceUrl + data.context.environment.record.attributes.url;
         console.log(url);
 
         function editAccount() {
