@@ -59,18 +59,26 @@
             var accountName = document.getElementById('nome-account').value;
             var conn = new jsforce.Connection({ signedRequest: data });
             
+            var instanceUrl = null;
+            var recordId = '';
+
             //MOCK INFORMATION
-            data.client.instanceUrl == null || '' ? "https://brave-impala-jo3roj-dev-ed.my.salesforce.com" : data.client.instanceUrl
-            data.context.environment.record.Id == null || '' ? '0015e000004v5HbAAI' : data.context.environment.record.Id
-            
-            conn.instanceUrl = data.client.instanceUrl;
+            if (data == null) {
+                instanceUrl = "https://brave-impala-jo3roj-dev-ed.my.salesforce.com";
+                recordId = '0015e000004v5HbAAI'
+            } else {
+                instanceUrl = data.client.instanceUrl;
+                recordId = data.context.environment.record.Id;
+            }
+
+            conn.instanceUrl = instanceUrl;
             /*conn.query('SELECT Id, Name FROM Account WHERE ID = \'' + data.context.environment.record.Id + '\'', function(err, res) {
                 if (err) { return console.error(err); }
                 console.log(res);
             });*/
             
             conn.sobject("Account").update({ 
-                Id : data.context.environment.record.Id,
+                Id : recordId,
                 Name : accountName
             }, function(err, ret) {
             if (err || !ret.success) { return console.error(err, ret); }
