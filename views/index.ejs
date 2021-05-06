@@ -45,7 +45,6 @@
     </div>  
     <script>
         let req = "<%= req %>"  ; 
-        var sr = req.content;
         var decodedString = req.split('&#34;').join('"')  ;  
         console.log('decodedString:'+decodedString);
         var wrapper = document.getElementById("reqCode");
@@ -61,7 +60,7 @@
 
         function editAccount() {
             var accountName = document.getElementById('nome-account').value;
-            var conn = new jsforce.Connection({ signedRequest: sr });
+            var conn = new jsforce.Connection({ signedRequest: data });
             conn.query('SELECT Id, Name FROM Account WHERE ID = ' + data.context.environment.record.Id , function(err, res) {
                 if (err) { return console.error(err); }
                 console.log(res);
