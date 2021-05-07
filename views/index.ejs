@@ -80,7 +80,7 @@
                 console.log(res);
             });*/
             
-            conn.sobject("Account").upsert({ 
+            conn.sobject("Account").update({ 
                 Id : recordId,
                 Name : accountName
             }, function(err, ret) {
