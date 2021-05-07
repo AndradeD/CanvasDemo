@@ -57,7 +57,10 @@
 
         function editAccount() {
             var accountName = document.getElementById('nome-account').value;
-            var conn = new jsforce.Connection({ signedRequest: data });
+            var conn = new jsforce.Connection({ 
+                    signedRequest: data,
+                    proxyUrl: 'https://glacial-island-07974.herokuapp.com/'
+                });
             
             var instanceUrl = null;
             var recordId = '';
