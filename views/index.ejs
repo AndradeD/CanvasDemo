@@ -87,7 +87,11 @@
     <script>
         let casesStr = "<%= casesFromServer %>" ; 
         var decodedCases = casesStr.split('&#34;').join('"')  ;
-        var cases = JSON.parse(decodedCases);
+        var cases = null;
+        cases = retrieveCases();
+        if (cases == null) {
+            cases = JSON.parse(decodedCases);
+        }
 
         let req = "<%= req %>"  ; 
         var decodedString = req.split('&#34;').join('"')  ;  
@@ -112,7 +116,6 @@
 
 
         function refreshCases() {
-            retrieveCases();
             document.getElementById('tbody-list').innerHTML = "";
             for(var i=0; i<cases.length;i++) {
                 var table = document.getElementById( 'tbody-list' );
@@ -168,7 +171,6 @@
                   cases = result;
                 });                
             }
-            refreshCases();
         }
 
         function editAccount() {
