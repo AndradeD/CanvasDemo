@@ -107,7 +107,7 @@
 
             conn.instanceUrl = instanceUrl;
 
-            retrieveCases();
+            cases = retrieveCases();
             if (cases == null) {
                 cases = JSON.parse(decodedCases);
             }
@@ -170,6 +170,7 @@
                   cases = result.records;
                 });                
             }
+            return cases;
         }
 
         function editAccount() {
