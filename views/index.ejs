@@ -112,6 +112,7 @@
 
 
         function refreshCases() {
+            retrieveCases();
             document.getElementById('tbody-list').innerHTML = "";
             for(var i=0; i<cases.length;i++) {
                 var table = document.getElementById( 'tbody-list' );
@@ -156,6 +157,17 @@
             document.getElementById('status-case').value = "";
             document.getElementById('subject-case').value = "";
             document.getElementById('description-case').value = "";
+            refreshCases();
+        }
+
+        function retrieveCases() {
+            if (data != undefined) {
+                var records = [];
+                conn.query("SELECT Status, Subject, Description FROM Case WHERE ACCOUNT_ID = " + data.context.environment.record.AccountId, function(err, result) {
+                  if (err) { return console.error(err); }
+                  cases = result;
+                });                
+            }
             refreshCases();
         }
 
