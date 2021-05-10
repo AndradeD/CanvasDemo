@@ -30,10 +30,51 @@
             </p> 
         </div> -->
 
-        <div id="edicao_account">
-            <p>Nome</p>
-            <input type="text" placeholder="Nome" id="nome-account" />
-            <button onclick="editAccount()">Edit Account</button>
+        <div class="red-container">
+            <h1>Sistema Legado</h1>
+        </div>
+
+        <div class="button-container">
+            <button type="button" class="button" onclick="removeHiddenCriacao()">Criar Case</button>
+            <button type="button" class="button" onclick="removeHiddenList()" >Mostrar Cases</button>
+        </div>
+        
+        <div id="criacao_case" class="hidden">
+            <h1>Case Creation</h1>
+            <span>Status</span>
+            <select id="status-case" name="Status">
+                <option value="New">New</option>
+                <option value="Working">Working</option>
+                <option value="Escalated">Escalated</option>
+                <option value="Closed">Closed</option>
+              </select>
+            <span>Subject</span>
+            <input type="text" placeholder="Subject" id="subject-case" />
+            <span>Description</span>
+            <input type="text" placeholder="Description" id="description-case" />
+            <button onclick="createCase()" class="button">Create</button>
+        </div>
+
+        <div id="edicao_opportunity" class="hidden">
+            <p>Next Step Edit</p>
+            <input type="text" placeholder="Next Step" id="next_step_description" />
+            <button onclick="editOpportunity()" class="button">Save</button>
+        </div>
+
+        <div id="list_cases" class="hidden">
+            <h3>Lista de Cases Criadas</h3>
+            <table id="table-case">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Subject</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-list">
+                </tbody>
+            </table>
+
         </div>
      
         <p>
@@ -44,54 +85,115 @@
 
     </div>  
     <script>
+        let casesStr = "<%= casesFromServer %>" ; 
+        var decodedCases = casesStr.split('&#34;').join('"')  ;
+        var cases = JSON.parse(decodedCases);
+
         let req = "<%= req %>"  ; 
         var decodedString = req.split('&#34;').join('"')  ;  
         console.log('decodedString:'+decodedString);
         var wrapper = document.getElementById("reqCode");
         // or from a string by JSON.parse(str) method
         var dataStr = decodedString;
-        var data = null;
+        var data, conn, instanceUrl, recordId = null;
+
+        refreshCases();
+
         try {
             data = JSON.parse(dataStr);
-        } catch (e) {}
-
-        function editAccount() {
-            var accountName = document.getElementById('nome-account').value;
-            var conn = new jsforce.Connection({ 
-                    signedRequest: data,
-                    //proxyUrl: 'https://glacial-island-07974.herokuapp.com/'
-                    //proxyUrl: 'http://localhost:3000'
-                });
-            
-            var instanceUrl = null;
-            var recordId = '';
-
-            //MOCK INFORMATION
-            if (data == null) {
-                instanceUrl = "https://brave-impala-jo3roj-dev-ed.my.salesforce.com";
-                recordId = '0015e000004v5HbAAI'
-            } else {
-                instanceUrl = data.client.instanceUrl;
-                recordId = data.context.environment.record.Id;
-            }
+            conn = new jsforce.Connection({ 
+                signedRequest: data
+            });
+            instanceUrl = data.client.instanceUrl;
+            recordId = data.context.environment.record.Id;
 
             conn.instanceUrl = instanceUrl;
-            /*conn.query('SELECT Id, Name FROM Account WHERE ID = \'' + data.context.environment.record.Id + '\'', function(err, res) {
-                if (err) { return console.error(err); }
-                console.log(res);
-            });*/
+        } catch (e) {}
+
+
+        function refreshCases() {
+            document.getElementById('tbody-list').innerHTML = "";
+            for(var i=0; i<cases.length;i++) {
+                var table = document.getElementById( 'tbody-list' );
+                var row = table.insertRow(i),
+                    cell1 = row.insertCell(0),
+                    cell2 = row.insertCell(1),
+                    cell3 = row.insertCell(2);
+    
+                cell1.innerHTML = cases[i].Status;
+                cell2.innerHTML = cases[i].Subject;
+                cell3.innerHTML = cases[i].Description;
+            }
+        }
+
+        function createCase() {
+            var status = document.getElementById('status-case').value;
+            var subject = document.getElementById('subject-case').value;
+            var description = document.getElementById('description-case').value;
+            var newCase = null;
+
+            if (data != undefined) {
+                newCase = { 
+                    Status: status,
+                    Subject: subject,
+                    Description: description,
+                    AccountId: data.context.environment.record.AccountId
+                }
+                conn.sobject("Case").create(newCase, function(err, ret) {
+                if (err || !ret.success) { return console.error(err, ret); }
+                    alert('Created Successfully : ' + ret.id + ", please go to Cases Page.");
+                });
+            } else {
+                newCase = { 
+                    Status: status,
+                    Subject: subject,
+                    Description: description,
+                    AccountId: null
+                }
+                alert('Case created');
+            }
+            cases.push(newCase);
+            document.getElementById('status-case').value = "";
+            document.getElementById('subject-case').value = "";
+            document.getElementById('description-case').value = "";
+            refreshCases();
+        }
+
+        function editAccount() {
+            var nextStep = document.getElementById('next_step_description').value;
             
-            conn.sobject("Account").update({ 
+            conn.sobject("Opportunity").update({ 
                 Id : recordId,
-                Name : accountName
+                NextStep : nextStep
             }, function(err, ret) {
             if (err || !ret.success) { return console.error(err, ret); }
                 alert('Updated Successfully : ' + ret.id + ", please refresh your page.");
             });
         }
 
+        function removeHiddenCriacao() {
+            document.getElementById('criacao_case').classList.remove('hidden');
+            document.getElementById('criacao_case').classList.add('inlineGrid');
+            document.getElementById('edicao_opportunity').classList.add('hidden');
+            document.getElementById('list_cases').classList.add('hidden');
+        }
+
+        function removeHiddenList() {
+            document.getElementById('list_cases').classList.remove('hidden');
+            document.getElementById('edicao_opportunity').classList.add('hidden');
+            document.getElementById('criacao_case').classList.add('hidden');
+            document.getElementById('criacao_case').classList.remove('inlineGrid');
+        }
+
+        function removeHiddenEdit() {
+            document.getElementById('edicao_opportunity').classList.remove('hidden');
+            document.getElementById('list_cases').classList.add('hidden');
+            document.getElementById('criacao_case').classList.add('hidden');
+            document.getElementById('criacao_case').classList.remove('inlineGrid');
+        }
+
         // Create json-tree
-        var tree = jsonTree.create(data, wrapper);  
+        //var tree = jsonTree.create(data, wrapper);  
     </script>
 </body> 
 </html>

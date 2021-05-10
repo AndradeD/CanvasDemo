@@ -715,7 +715,7 @@ var jsonTree = (function() {
          */
         loadData : function(jsonObj) {
             if (!utils.isValidRoot(jsonObj)) {
-                alert('The root should be an object or an array');
+               // alert('The root should be an object or an array');
                 return;
             }
 

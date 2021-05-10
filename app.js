@@ -10,12 +10,17 @@ console.log('consumer secret - '+consumerSecretApp);
 
 app.use(express.static(path.join(__dirname, 'views')));
 app.set('view engine', 'ejs');
-//teste
 
 app.use(bodyParser.urlencoded());
 
 app.use(bodyParser.json());
- 
+
+var cases = [{ 
+  Status: "New",
+  Subject: "subject1",
+  Description: "Description1",
+  AccountId: null
+}]
 
 app.get('/', function (req, res) {
   /*var conn = new jsforce.Connection({
@@ -36,7 +41,9 @@ app.get('/', function (req, res) {
     // ...
     */
     //res.render('hello');
-    res.render('index', {title: '', req: null});
+
+   // res.json({ casesFromServer: cases });
+    res.render('index', {title: '', req: null, casesFromServer: JSON.stringify(cases)});
 });
 
 app.post('/', function (req, res) { 
@@ -52,7 +59,7 @@ app.post('/', function (req, res) {
         console.log("got the session object:");
         console.log(envelope);
         console.log(JSON.stringify(envelope) );
-        res.render('index', { title: envelope.context.user.userName, req : JSON.stringify(envelope) });
+        res.render('index', { title: envelope.context.user.userName, req : JSON.stringify(envelope), casesFromServer: JSON.stringify(cases)});
     }else{
         res.send("authentication failed");
     } 
