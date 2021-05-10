@@ -107,7 +107,7 @@
 
             conn.instanceUrl = instanceUrl;
 
-            cases = retrieveCases();
+            retrieveCases();
             if (cases == null) {
                 cases = JSON.parse(decodedCases);
             }
