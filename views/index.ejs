@@ -166,7 +166,7 @@
         function retrieveCases() {
             if (data != undefined) {
                 var records = [];
-                conn.query("SELECT Status, Subject, Description FROM Case WHERE ACCOUNT_ID = " + data.context.environment.record.AccountId, function(err, result) {
+                conn.query("SELECT Status, Subject, Description FROM Case", function(err, result) {
                   if (err) { return console.error(err); }
                   cases = result;
                 });                
