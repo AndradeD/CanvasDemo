@@ -165,10 +165,9 @@
 
         function retrieveCases() {
             if (data != undefined) {
-                var records = [];
                 conn.query("SELECT Status, Subject, Description FROM Case", function(err, result) {
                   if (err) { return console.error(err); }
-                  cases = result;
+                  cases = result.records;
                 });                
             }
         }
