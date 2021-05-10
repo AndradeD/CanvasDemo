@@ -88,10 +88,6 @@
         let casesStr = "<%= casesFromServer %>" ; 
         var decodedCases = casesStr.split('&#34;').join('"')  ;
         var cases = null;
-        cases = retrieveCases();
-        if (cases == null) {
-            cases = JSON.parse(decodedCases);
-        }
 
         let req = "<%= req %>"  ; 
         var decodedString = req.split('&#34;').join('"')  ;  
@@ -100,8 +96,6 @@
         // or from a string by JSON.parse(str) method
         var dataStr = decodedString;
         var data, conn, instanceUrl, recordId = null;
-
-        refreshCases();
 
         try {
             data = JSON.parse(dataStr);
@@ -112,6 +106,12 @@
             recordId = data.context.environment.record.Id;
 
             conn.instanceUrl = instanceUrl;
+
+            cases = retrieveCases();
+            if (cases == null) {
+                cases = JSON.parse(decodedCases);
+            }
+            refreshCases();
         } catch (e) {}
 
 
