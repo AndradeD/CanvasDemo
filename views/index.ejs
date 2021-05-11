@@ -107,7 +107,7 @@
 
             conn.instanceUrl = instanceUrl;
 
-            cases = await retrieveCases();
+            cases = retrieveCases();
             if (cases == []) {
                 cases = JSON.parse(decodedCases);
             }
@@ -163,7 +163,7 @@
             refreshCases();
         }
 
-        async function retrieveCases() {
+        function retrieveCases() {
             if (data != undefined) {
                 conn.query("SELECT Status, Subject, Description FROM Case", function(err, result) {
                   if (err) { return console.error(err); }
