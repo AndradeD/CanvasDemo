@@ -196,6 +196,7 @@
         }
 
         function removeHiddenList() {
+            refreshCases();
             document.getElementById('list_cases').classList.remove('hidden');
             document.getElementById('edicao_case').classList.add('hidden');
             document.getElementById('criacao_case').classList.add('hidden');
