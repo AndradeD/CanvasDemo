@@ -87,7 +87,7 @@
     <script>
         let casesStr = "<%= casesFromServer %>" ; 
         var decodedCases = casesStr.split('&#34;').join('"')  ;
-        var cases = null;
+        var cases = [];
 
         let req = "<%= req %>"  ; 
         var decodedString = req.split('&#34;').join('"')  ;  

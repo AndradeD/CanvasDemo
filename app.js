@@ -15,12 +15,7 @@ app.use(bodyParser.urlencoded());
 
 app.use(bodyParser.json());
 
-var cases = [{ 
-  Status: "New",
-  Subject: "subject1",
-  Description: "Description1",
-  AccountId: null
-}]
+var cases = []
 
 app.get('/', function (req, res) {
   /*var conn = new jsforce.Connection({
