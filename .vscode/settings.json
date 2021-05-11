@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/1f085d2e-f9d8-47e6-823c-ca838674c277/resourceGroups/POCCanvas/providers/Microsoft.Web/sites/SalesforceCanvasPOC",
+    "appService.deploySubpath": "."
+}
