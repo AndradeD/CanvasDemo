@@ -36,7 +36,7 @@
 
         <div class="button-container">
             <button type="button" class="button" onclick="removeHiddenCriacao()">Criar Case</button>
-            <button type="button" class="button" onclick="removeHiddenEdit()" >Alterar a Case</button>
+            <button type="button" id="edit-button" class="button hidden" onclick="removeHiddenEdit()" >Alterar a Case</button>
             <button type="button" class="button" onclick="removeHiddenList()" >Mostrar Cases</button>
         </div>
         
@@ -108,6 +108,9 @@
 
             conn.instanceUrl = instanceUrl;
             callStartCases();
+            if (data != undefined) {
+                document.getElementById('edit-button').classList.remove('hidden');
+            }
         } catch (e) {}
 
         async function callStartCases() {
