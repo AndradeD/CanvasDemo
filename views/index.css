@@ -15,7 +15,7 @@ input, select {
 }
 
 .button-container {
-    width: 14rem;
+    width: 22rem;
     height: 3rem;
     display: inline-flex;
     gap: 1rem;
