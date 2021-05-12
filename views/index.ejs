@@ -48,6 +48,7 @@
                     <a class="nav-link" onclick="removeHiddenList()" href="#">List</a>
                 </li>
                 </ul>
+                <span id="mensagem-usuario">Usuário Salesforce: </span>
             </div>
         </div>
     </nav>
@@ -127,6 +128,9 @@
             callStartCases();
             if (data != undefined) {
                 document.getElementById('edit-button').parentElement.classList.remove('hidden');
+                document.getElementById('mensagem-usuario').textContent += data.context.user.fullName;
+            } else {
+                document.getElementById('mensagem-usuario').textContent += "Fora do Salesforce";
             }
         } catch (e) {}
 

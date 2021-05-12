@@ -51,7 +51,7 @@ input, select {
 #criacao_case {
     width: 20rem;
     height: 20rem;
-    margin: 0 auto;
+   /* margin-left: 7rem;*/
 }
 
 .container-fluid {
@@ -102,4 +102,9 @@ img {
 #img-logo {
     width: 142px;
     margin-right: 1rem;
+}
+
+#mensagem-usuario{
+    color:white;
+    margin-left: 2rem;
 }
