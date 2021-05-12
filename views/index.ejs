@@ -48,7 +48,7 @@
                     <a class="nav-link" onclick="removeHiddenList()" href="#">List</a>
                 </li>
                 </ul>
-                <span id="mensagem-usuario">Usuário Salesforce: </span>
+                <span id="mensagem-usuario">Usuário Salesforce: Fora do Salesforce</span>
             </div>
         </div>
     </nav>
@@ -126,11 +126,10 @@
 
             conn.instanceUrl = instanceUrl;
             callStartCases();
+            debugger;
             if (data != undefined) {
                 document.getElementById('edit-button').parentElement.classList.remove('hidden');
-                document.getElementById('mensagem-usuario').textContent += data.context.user.fullName;
-            } else {
-                document.getElementById('mensagem-usuario').textContent += "Fora do Salesforce";
+                document.getElementById('mensagem-usuario').textContent += "Usuário Salesforce: " + data.context.user.fullName;
             }
         } catch (e) {}
 
