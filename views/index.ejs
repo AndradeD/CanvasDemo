@@ -123,9 +123,8 @@
             conn.instanceUrl = instanceUrl;
             callStartCases();
             if (data != undefined) {
-                document.getElementById('edit-button').classList.remove('hidden');
+                document.getElementById('edit-button').parentElement.classList.remove('hidden');
             }
-            document.getElementById('homePage-image').classList.remove('hidden');
         } catch (e) {}
 
         async function callStartCases() {
