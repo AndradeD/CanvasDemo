@@ -13,33 +13,41 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jsforce/1.9.1/jsforce.min.js"></script>
     <link href="jsonTree.css" rel="stylesheet" />
     <link href="index.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <script src="jsonTree.js"></script>
 
 </head>
 
 <body>
     <div class="container-fluid">
- 
-        <!--<div class="jumbotron">
-            <h1 class="display-4"> Canvas App Workinga as Expected, Few Observations </h1>
-            <p class="lead">
-                <ul>
-                    <li> OAuth setting needed in Connected App for scope but no use of Callback URL.  </li>
-                    <li>  Users must be preapproved for signed request, otherwise OAuth flow would be needed. </li> 
-                </ul> 
-            </p> 
-        </div> -->
-
-        <div class="red-container">
-            <h1>Sistema Legado</h1>
+        <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+        <a class="navbar-brand">Sistema Legado</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" onclick="goHome()" href="#">Home
+                    <span class="sr-only">(current)</span>
+                    </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="removeHiddenCriacao()" href="#">Criar Case</a>
+            </li>
+            <li class="nav-item hidden">
+                <a class="nav-link" onclick="removeHiddenEdit()" id="edit-button" href="#">Alterar a Case</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="removeHiddenList()" href="#">Mostrar Cases</a>
+            </li>
+            </ul>
         </div>
-
-        <div class="button-container">
-            <button type="button" class="button" onclick="removeHiddenCriacao()">Criar Case</button>
-            <button type="button" id="edit-button" class="button hidden" onclick="removeHiddenEdit()" >Alterar a Case</button>
-            <button type="button" class="button" onclick="removeHiddenList()" >Mostrar Cases</button>
         </div>
-        
+    </nav>
+    <div id="body-main">
         <div id="criacao_case" class="hidden">
             <h1>Case Creation</h1>
             <span>Status</span>
@@ -77,6 +85,11 @@
             </table>
 
         </div>
+        <div id="homePage-image">
+            <img src="https://dsim.in/blog/wp-content/uploads/2017/03/feature-3.jpg" alt="homePage">
+        </div>
+
+    </div>
      
         <p>
             <div id="reqCode">
@@ -111,6 +124,7 @@
             if (data != undefined) {
                 document.getElementById('edit-button').classList.remove('hidden');
             }
+            document.getElementById('homePage-image').classList.remove('hidden');
         } catch (e) {}
 
         async function callStartCases() {
@@ -196,6 +210,7 @@
             document.getElementById('criacao_case').classList.add('inlineGrid');
             document.getElementById('edicao_case').classList.add('hidden');
             document.getElementById('list_cases').classList.add('hidden');
+            document.getElementById('homePage-image').classList.add('hidden');
         }
 
         function removeHiddenList() {
@@ -204,6 +219,7 @@
             document.getElementById('edicao_case').classList.add('hidden');
             document.getElementById('criacao_case').classList.add('hidden');
             document.getElementById('criacao_case').classList.remove('inlineGrid');
+            document.getElementById('homePage-image').classList.add('hidden');
         }
 
         function removeHiddenEdit() {
@@ -211,6 +227,15 @@
             document.getElementById('list_cases').classList.add('hidden');
             document.getElementById('criacao_case').classList.add('hidden');
             document.getElementById('criacao_case').classList.remove('inlineGrid');
+            document.getElementById('homePage-image').classList.add('hidden');
+        }
+        
+        function goHome() {
+            document.getElementById('edicao_case').classList.add('hidden');
+            document.getElementById('list_cases').classList.add('hidden');
+            document.getElementById('criacao_case').classList.add('hidden');
+            document.getElementById('criacao_case').classList.remove('inlineGrid');
+            document.getElementById('homePage-image').classList.remove('hidden');
         }
 
         // Create json-tree
