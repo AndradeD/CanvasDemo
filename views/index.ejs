@@ -238,10 +238,12 @@
             document.getElementById('criacao_case').classList.add('hidden');
             document.getElementById('criacao_case').classList.remove('inlineGrid');
             document.getElementById('homePage-image').classList.add('hidden');
+            document.getElementById('edicao_case').classList.remove('inlineGrid');
         }
 
         function removeHiddenEdit() {
             document.getElementById('edicao_case').classList.remove('hidden');
+            document.getElementById('edicao_case').classList.add('inlineGrid');
             document.getElementById('list_cases').classList.add('hidden');
             document.getElementById('criacao_case').classList.add('hidden');
             document.getElementById('criacao_case').classList.remove('inlineGrid');
@@ -254,6 +256,7 @@
             document.getElementById('criacao_case').classList.add('hidden');
             document.getElementById('criacao_case').classList.remove('inlineGrid');
             document.getElementById('homePage-image').classList.remove('hidden');
+            document.getElementById('edicao_case').classList.remove('inlineGrid');
         }
 
         function clickShowMenu() {
