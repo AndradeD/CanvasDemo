@@ -146,7 +146,7 @@
 
         function getClientNameById(clientId) {
             var clientName = "";
-            conn.query("SELECT Name FROM Contact WHERE ID = " + clientId, function(err, result) {
+            conn.query("SELECT Name FROM Contact WHERE ID = '" + clientId + "'", function(err, result) {
                 if (err) { return console.error(err); }
                 clientName = result.records;
             });         
