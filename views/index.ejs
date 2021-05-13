@@ -220,7 +220,7 @@
             }, function(err, ret) {
             if (err || !ret.success) { return console.error(err, ret); }
                 //alert('Updated Successfully : ' + ret.id + ", please refresh your page.");
-                window.top.location.reload();
+                window.top.location=window.top.location.href;
             });
         }
 
