@@ -126,10 +126,10 @@
             recordId = data.context.environment.record.Id;
 
             conn.instanceUrl = instanceUrl;
+            var clientName = "";
             callStartCases();
             debugger;
             if (data != undefined) {
-                var clientName = await getClientNameById(data.context.environment.record.ContactId);
                 document.getElementById('edit-button').parentElement.classList.remove('hidden');
                 document.getElementById('mensagem-usuario').textContent = "Usuário Salesforce: " + data.context.user.fullName;
                 document.getElementById('cliente-case').textContent = "Cliente: " + clientName;
@@ -138,6 +138,7 @@
 
         async function callStartCases() {
             cases = await retrieveCases();
+            clientName = await getClientNameById(data.context.environment.record.ContactId); 
             if (cases == []) {
                 cases = JSON.parse(decodedCases);
             }
@@ -206,7 +207,7 @@
                 conn.query("SELECT Status, Subject, Description FROM Case ORDER BY CreatedDate", function(err, result) {
                   if (err) { return console.error(err); }
                   cases = result.records;
-                });                
+                });
             }
             return cases;
         }
