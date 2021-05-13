@@ -71,6 +71,7 @@
 
         <div id="edicao_case" class="hidden">
             <p>Priority Edit</p>
+            <span id="cliente-case"></span>
             <input type="text" placeholder="Priority" id="priorityCase" />
             <button onclick="editCase()" class="button">Edit</button>
         </div>
@@ -128,8 +129,10 @@
             callStartCases();
             debugger;
             if (data != undefined) {
+                var clientName = getClientNameById(data.context.environment.record.ContactId);
                 document.getElementById('edit-button').parentElement.classList.remove('hidden');
                 document.getElementById('mensagem-usuario').textContent = "Usuário Salesforce: " + data.context.user.fullName;
+                document.getElementById('cliente-case').textContent = "Cliente: " + clientName;
             }
         } catch (e) {}
 
@@ -139,6 +142,15 @@
                 cases = JSON.parse(decodedCases);
             }
             //refreshCases();
+        }
+
+        function getClientNameById(clientId) {
+            var clientName = "";
+            conn.query("SELECT Name FROM Contact WHERE ID = " + clientId, function(err, result) {
+                if (err) { return console.error(err); }
+                clientName = result.records;
+            });         
+            return clientName;      
         }
 
         function refreshCases() {
