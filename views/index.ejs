@@ -147,9 +147,8 @@
 
         async function getClientNameById(clientId) {
             var clientName = "";
-            conn.query("SELECT Name FROM Contact WHERE ID = '" + clientId + "'").then(function(err, result) {
-                if (err) { return console.error(err); }
-                clientName = result.records;
+            conn.query("SELECT Name FROM Contact WHERE ID = '" + clientId + "'").then(function(result) {
+                clientName = result.record;
             });         
             return clientName;      
         }
