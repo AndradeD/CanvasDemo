@@ -243,6 +243,7 @@
         }
 
         function removeHiddenEdit() {
+            clientName = getClientNameById(data.context.environment.record.ContactId);
             document.getElementById('edicao_case').classList.remove('hidden');
             document.getElementById('edicao_case').classList.add('inlineGrid');
             document.getElementById('list_cases').classList.add('hidden');
