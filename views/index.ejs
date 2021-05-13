@@ -219,8 +219,8 @@
                 Priority : priority
             }, function(err, ret) {
             if (err || !ret.success) { return console.error(err, ret); }
-                alert('Updated Successfully : ' + ret.id + ", please refresh your page.");
-                $A.get('e.force:refreshView').fire();
+                //alert('Updated Successfully : ' + ret.id + ", please refresh your page.");
+                Location.reload();
             });
         }
 
