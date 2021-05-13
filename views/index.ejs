@@ -220,8 +220,7 @@
             }, function(err, ret) {
             if (err || !ret.success) { return console.error(err, ret); }
                 //alert('Updated Successfully : ' + ret.id + ", please refresh your page.");
-                console.log("Location HREF:" + window.top.location.href);
-                //window.top.location=window.top.location.href;
+                window.top.location= data.client.instanceUrl + "/lightning/r/"+data.context.environment.record.attributes.type+"/"+recordId+"/view";
             });
         }
 
