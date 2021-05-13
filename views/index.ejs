@@ -147,7 +147,7 @@
 
         async function getClientNameById(clientId) {
             var clientName = "";
-            conn.query("SELECT Name FROM Contact WHERE ID = '" + clientId + "'", function(err, result) {
+            conn.query("SELECT Name FROM Contact WHERE ID = '" + clientId + "'").then(function(err, result) {
                 if (err) { return console.error(err); }
                 clientName = result.records;
             });         
@@ -243,7 +243,6 @@
         }
 
         function removeHiddenEdit() {
-            clientName = getClientNameById(data.context.environment.record.ContactId);
             document.getElementById('edicao_case').classList.remove('hidden');
             document.getElementById('edicao_case').classList.add('inlineGrid');
             document.getElementById('list_cases').classList.add('hidden');
