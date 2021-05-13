@@ -129,7 +129,7 @@
             callStartCases();
             debugger;
             if (data != undefined) {
-                var clientName = getClientNameById(data.context.environment.record.ContactId);
+                var clientName = await getClientNameById(data.context.environment.record.ContactId);
                 document.getElementById('edit-button').parentElement.classList.remove('hidden');
                 document.getElementById('mensagem-usuario').textContent = "Usuário Salesforce: " + data.context.user.fullName;
                 document.getElementById('cliente-case').textContent = "Cliente: " + clientName;
@@ -144,7 +144,7 @@
             //refreshCases();
         }
 
-        function getClientNameById(clientId) {
+        async function getClientNameById(clientId) {
             var clientName = "";
             conn.query("SELECT Name FROM Contact WHERE ID = '" + clientId + "'", function(err, result) {
                 if (err) { return console.error(err); }
