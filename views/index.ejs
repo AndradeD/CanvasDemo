@@ -132,7 +132,7 @@
             if (data != undefined) {
                 document.getElementById('edit-button').parentElement.classList.remove('hidden');
                 document.getElementById('mensagem-usuario').textContent = "Usuário Salesforce: " + data.context.user.fullName;
-                document.getElementById('cliente-case').textContent = "Cliente: " + clientName;
+                //document.getElementById('cliente-case').textContent = "Cliente: " + clientName;
             }
         } catch (e) {}
 
@@ -148,9 +148,9 @@
         async function getClientNameById(clientId) {
             var clientName = "";
             conn.query("SELECT Name FROM Contact WHERE ID = '" + clientId + "'").then(function(result) {
-                clientName = result.records[0].Name;
+                document.getElementById('cliente-case').textContent = "Cliente: " + result.records[0].Name;
             });         
-            return clientName;      
+            //return clientName;      
         }
 
         function refreshCases() {
@@ -242,7 +242,6 @@
         }
 
         function removeHiddenEdit() {
-            document.getElementById('cliente-case').textContent = "Cliente: " + clientName;
             document.getElementById('edicao_case').classList.remove('hidden');
             document.getElementById('edicao_case').classList.add('inlineGrid');
             document.getElementById('list_cases').classList.add('hidden');
